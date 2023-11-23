@@ -1,6 +1,8 @@
 package demo.fixed_clock.controller;
 
 import demo.fixed_clock.utils.DateTimeHelper;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +22,13 @@ public class ApplicationClockController {
   @ResponseBody
   public Map<String, Object> now() {
     return Map.of(
-        "today", DateTimeHelper.today(),
-        "now", DateTimeHelper.now());
+        "DateTimeHelper.today",
+        DateTimeHelper.today(),
+        "LocalDate.now",
+        LocalDate.now(),
+        "DateTimeHelper.now",
+        DateTimeHelper.now(),
+        "LocalDateTime.now",
+        LocalDateTime.now());
   }
 }
