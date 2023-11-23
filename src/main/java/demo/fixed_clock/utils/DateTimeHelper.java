@@ -26,6 +26,7 @@ public class DateTimeHelper {
   private static Clock clock = Clock.systemDefaultZone();
 
   public static LocalDate today() {
+    var isBusinessDate = false;
     return LocalDate.now(clock);
   }
 
@@ -41,7 +42,7 @@ public class DateTimeHelper {
 
     applicationClockRepository.findAll().stream()
         .findFirst()
-        .ifPresent(
+        .ifPresentOrElse(
             v -> {
               try {
                 var zone = ZoneId.of(v.getTimeZone());
@@ -59,6 +60,7 @@ public class DateTimeHelper {
                 log.error("failed to setting application clock. see application_clock rows.", e);
                 clock = Clock.systemDefaultZone();
               }
-            });
+            },
+            () -> clock = Clock.systemDefaultZone());
   }
 }
